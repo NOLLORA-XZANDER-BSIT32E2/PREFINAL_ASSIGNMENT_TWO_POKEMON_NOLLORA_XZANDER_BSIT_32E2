@@ -1,0 +1,47 @@
+﻿@model PokemonApp.Models.Pokemon
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Name</title>
+</head>
+<body>
+    <div class="pokemon-container">
+        <form method="get" action="@Url.Action("Index", "Pokemon")">
+            <label for="pokemonName">Pokemon Name:</label>
+            <div class="input-wrapper">
+                <input type="text" id="pokemonName" name="name" value="@Model.Name" />
+            </div>
+            <button class=""type="submit">Search</button>
+        </form>
+
+        <h1>@Model.Name</h1>
+        @if (!string.IsNullOrEmpty(Model.SpriteUrl))
+        {
+            <img src="@Model.SpriteUrl" alt="@Model.Name" class="pokemon-image" />
+        }
+        <div class="pokemon-details">
+            <h2>Abilities</h2>
+            <ul class="abilities">
+                @foreach (var ability in Model.Abilities)
+                {
+                    <li>@ability.Ability.Name</li>
+                }
+            </ul>
+            <h2>Moves</h2>
+            <ul class="moves">
+                @foreach (var move in Model.Moves)
+                {
+                    <li>@move.Move.Name</li>
+                }
+            </ul>
+        </div>
+
+        @if (ViewData["Error"] != null)
+        {
+            <p>@ViewData["Error"]</p>
+        }
+    </div>
+</body>
+</html>
